@@ -7,13 +7,19 @@ int main()
 {
     PhoneBook	phonebook;
 	str			line;
-	str			ADD = "ADD";
-	str			SEARCH = "SEARCH";
-	str			EXIT = "EXIT";
+	const str	ADD = "ADD";
+	const str   SEARCH = "SEARCH";
+	const str   EXIT = "EXIT";
 
 	std::cout << "Hey..., Well this is your contact manager!" << std::endl;
-    while (1)
+    while (std::getline(std::cin, line))
     {
-        std::cin >> 
+        if (line == ADD)
+            phonebook.add_contact();
+        else if (line == SEARCH)
+            phonebook.search_contac();
+        else if (line == EXIT)
+            break;
     }
+    return (0);
 }
