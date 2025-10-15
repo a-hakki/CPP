@@ -12,6 +12,7 @@ int main()
 	const str   EXIT = "EXIT";
 
 	std::cout << "Hey..., Well this is your contact manager!" << std::endl;
+    std::cout << "Commands list -> ADD, SEARCH or EXIT!" << std:: endl;
     while (std::getline(std::cin, line))
     {
         if (line == ADD)
@@ -20,6 +21,7 @@ int main()
             phonebook.search_contac();
         else if (line == EXIT)
             break;
+        std::cout << "Commands list -> ADD, SEARCH or EXIT!" << std:: endl;
     }
     return (0);
 }
