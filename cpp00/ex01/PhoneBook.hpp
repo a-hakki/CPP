@@ -5,6 +5,7 @@ class PhoneBook
 {
     private :
         int current_index;
+        int number_of_contact;
         Contact contact[8];
     public :
         PhoneBook();
