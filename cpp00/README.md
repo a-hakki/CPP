@@ -1,13 +1,12 @@
 # namespace -> std
 
-````markdown
 # 🚫 Why "using namespace std;" is Forbidden in 42 C++ Modules
 
 In 42 Network C++ projects (CPP00 → CPP09), it’s **forbidden** to use  
 `using namespace std;`.  
 Instead, you must **explicitly prefix** all standard library objects with `std::`.
 
----
+
 
 ## 🧩 The Difference
 

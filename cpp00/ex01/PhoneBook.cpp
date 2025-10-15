@@ -1,4 +1,5 @@
 #include "PhoneBook.hpp"
+#include <limits>
 
 PhoneBook::PhoneBook()
     : current_index(0), number_of_contact(0)
@@ -51,9 +52,9 @@ void PhoneBook::search_contac()
     str secret;
 
     std::cout << std::setw(10) << "Index" << "|";
-	std::cout << std::setw(10) << "Firstname" << "|";
-	std::cout << std::setw(10) << "Lastname" << "|";
-	std::cout << std::setw(10) << "Nickname" << std::endl;
+    std::cout << std::setw(10) << "Firstname" << "|";
+    std::cout << std::setw(10) << "Lastname" << "|";
+    std::cout << std::setw(10) << "Nickname" << std::endl;
     
     for (int i = 0; i < this->number_of_contact ; i++)
     {
@@ -63,24 +64,26 @@ void PhoneBook::search_contac()
         phone = this->contact[i].get_phone();
         secret = this->contact[i].get_secret();
         if (first.length() > 9)
-			first = first.substr(0, 9) + ".";
-		if (last.length() > 9)
-			last = last.substr(0, 9) + ".";
-		if (nick.length() > 9)
-			nick = nick.substr(0, 9) + ".";
+            first = first.substr(0, 9) + ".";
+        if (last.length() > 9)
+            last = last.substr(0, 9) + ".";
+        if (nick.length() > 9)
+            nick = nick.substr(0, 9) + ".";
         std::cout << std::setw(10) << i ;
         std::cout << "|" << std::setw(10) << first ;
         std::cout << "|" << std::setw(10) << last ;
-        std::cout << "|" << std::setw(10) << nick << std:: endl;
+        std::cout << "|" << std::setw(10) << nick << std::endl;
     }
 
     std::cout << "Enter the index of the contact to display: ";
     std::cin >> index;
     if (std::cin.fail() || index < 0 || index >= this->number_of_contact) {
+        std::cin.clear();
+        std::cin.ignore();
         std::cout << "Invalid index." << std::endl;
         return;
     }
-
+    std::cin.ignore();
     std::cout << "First name     : " << this->contact[index].get_first() << std::endl;
     std::cout << "Last name      : " << this->contact[index].get_last() << std::endl;
     std::cout << "Nickname       : " << this->contact[index].get_nick() << std::endl;
