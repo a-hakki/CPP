@@ -38,7 +38,22 @@ void PhoneBook::add_contact()
     current_index++;
 }
 
+static std::string fit_display(const std::string& s)
+{
+    if (s.size() > 10)
+        return s.substr(0, 9) + ".";
+    std::ostringstream ss;
+    ss << std::setw(10) << s;
+    return ss.str();
+}
+
 void PhoneBook::search_contac()
 {
-    std::cout << this->contact[0].get_first();
+    for (int  i = 0; i < 8; i++)
+    {
+        std::cout << std::setw(10) << i << "|"
+                  << fit_display(this->contact[i].get_first()) << "|"
+                  << fit_display(this->contact[i].get_last()) << "|"
+                  << fit_display(this->contact[i].get_nick()) << std::endl;
+    }
 }
