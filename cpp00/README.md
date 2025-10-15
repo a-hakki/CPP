@@ -1,6 +1,4 @@
-Sure 👍 — here’s a clean, formatted **`README.md`** version explaining everything, ready to drop in your repo:
-
----
+# namespace -> std
 
 ````markdown
 # 🚫 Why "using namespace std;" is Forbidden in 42 C++ Modules
@@ -82,37 +80,3 @@ Now, if the standard library defines a function called `count()`,
 your variable name **conflicts** with it — leading to **compiler errors or unexpected behavior**.
 
 ---
-
-## 🧠 Summary
-
-| Aspect     | `std::cout`  | `using namespace std; cout` |
-| ---------- | ------------ | --------------------------- |
-| Safety     | ✅ Safe       | ⚠️ Risky                    |
-| Clarity    | ✅ Explicit   | ⚠️ Ambiguous                |
-| 42 Rule    | ✅ Allowed    | ❌ Forbidden                 |
-| Code Style | Professional | Beginner Shortcut           |
-
----
-
-### 🏁 TL;DR
-
-Always use:
-
-```cpp
-std::cout << "Hello, World!" << std::endl;
-```
-
-Never use:
-
-```cpp
-using namespace std;
-```
-
-Being explicit with `std::` keeps your code **clean, readable, and professional**.
-
-```
-
----
-
-Would you like me to add a **section at the end** showing how to *safely* use `using std::cout;` for specific symbols (without importing everything)? It’s a trick that’s allowed in some cases.
-```
