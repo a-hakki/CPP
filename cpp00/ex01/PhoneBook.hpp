@@ -2,6 +2,9 @@
 
 class PhoneBook
 {
-    private:
-        ;
+    private :
+        Contact contact[8];
+    public :
+        PhoneBook();
+        ~PhoneBook();
 };
