@@ -4,7 +4,7 @@ SRCS = main.cpp Harl.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 CC = c++
-FLAGS = -std=c++98
+FLAGS = -Wall -Wextra -Werror -std=c++98
 
 all: $(NAME)
 

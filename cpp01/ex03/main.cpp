@@ -12,6 +12,9 @@ int main()
         bob.attack();
     }
     {
+        std::cout<<"----------\n";
+    }
+    {
         Weapon club = Weapon("crude spiked club");
         HumanB jim("Jim");
         jim.attack();

@@ -10,6 +10,14 @@ int main(int ac, char **av)
         std::cout << "Requirements : [./exec] [filename] [str1] [str2]" << std::endl;
         return (1);
     }
+    str             toReplace = str(av[2]);
+    str             replaceWith = str(av[3]);
+
+    if (toReplace.empty())
+    {
+        std::cerr << "Error: string to replace cannot be empty\n";
+        return (1);
+    }
 
     str     text;
     str     newFile = str(av[1]) + ".replace";
@@ -39,8 +47,7 @@ int main(int ac, char **av)
 
     str::size_type  pos = 0;
     str::size_type  len = str(av[2]).length();
-    str             toReplace = str(av[2]);
-    str             replaceWith = str(av[3]);
+
     while ((pos = fulltext.find(toReplace, pos)) != str::npos)
     {
         fulltext.erase(pos, len);
