@@ -47,4 +47,4 @@ class Fixed {
 
 std::ostream &operator<< (std::ostream &cout, const Fixed &obj);
 
-#endif // FIXED_HPP cout << fixed
+#endif // FIXED_HPP

@@ -1,8 +1,8 @@
 
-NAME := 
+NAME := a.out
 CC := c++
 FLAGS := -Wall -Wextra -Werror -std=c++98
-SRCS := 
+SRCS := main.cpp Fixed.cpp Point.cpp
 OBJS := $(SRCS:.cpp=.o)
 
 all: $(NAME)
