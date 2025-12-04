@@ -1,18 +1,24 @@
 #include "ClapTrap.hpp"
 
+ClapTrap::ClapTrap()
+    : Name("default"), Hit (10), Energy(10), Attack(0)
+{
+    std::cout << "ClapTrap " << this->Name << " created." << std::endl;
+}
+
 ClapTrap::ClapTrap(str N)
     : Name(N), Hit (10), Energy(10), Attack(0)
 {
     std::cout << "ClapTrap " << this->Name << " created." << std::endl;
 }
 
-ClapTrap::ClapTrap(ClapTrap &other)
+ClapTrap::ClapTrap(const ClapTrap &other)
 {
     std::cout << "copy constructor called" << std::endl;
-    other.Name = this->Name;
-    other.Hit = this->Hit;
-    other.Energy = this->Energy;
-    other.Attack = this->Attack;
+    this->Name = other.Name;
+    this->Hit = other.Hit;
+    this->Energy = other.Energy;
+    this->Attack = other.Attack;
     return ;
 }
 

@@ -17,6 +17,7 @@ class ClapTrap
 
     public:
 
+        ClapTrap();
         ClapTrap(str Name);
         ClapTrap(ClapTrap &other);
         ClapTrap &operator=(const ClapTrap &other);
