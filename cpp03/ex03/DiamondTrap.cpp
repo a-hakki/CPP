@@ -1,11 +1,11 @@
 #include "DiamondTrap.hpp"
 
 DiamondTrap::DiamondTrap(std::string Name)
-    : ClapTrap(Name + "_clap_name"), ScavTrap(Name), FragTrap(Name), Name(Name)
+    : ClapTrap(Name), ScavTrap(Name), FragTrap(Name), Name(Name + "_clap_name")
 {
-    this->Hit = FragTrap::Hit;
-    this->Energy = ScavTrap::Energy;
-    this->Attack = FragTrap::Attack;
+    this->Hit = 100;
+    this->Energy = 50;
+    this->Attack = 30;
     std::cout << "DiamondTrap " << this->Name << " created." << std::endl;
 }
 
@@ -30,5 +30,9 @@ DiamondTrap::~DiamondTrap()
     std::cout << "DiamondTrap " << this->Name << " destroyed." << std::endl;
 }
 
+void DiamondTrap::whoAmI()
+{
+    std::cout << "My name is " << this->Name << " and my ClapTrap name is " << ClapTrap::Name << std::endl;
+}
 
 
