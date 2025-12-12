@@ -18,7 +18,7 @@ FragTrap::FragTrap(std::string Name)
     std::cout << "FragTrap " << this->Name << " created." << std::endl;
 }
 
-FragTrap::FragTrap(FragTrap &other)
+FragTrap::FragTrap(const FragTrap &other)
     : ClapTrap(other)
 {
     std::cout << "FragTrap " << this->Name << " copied." << std::endl;
