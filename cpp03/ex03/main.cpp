@@ -6,6 +6,7 @@
 
 int main()
 {
+	{
 	std::cout << "=== Test 1: Create DiamondTrap ===" << std::endl;
 	DiamondTrap diamond("DT4P");
 
@@ -20,5 +21,13 @@ int main()
 	diamond.guardGate();
 
 	std::cout << "\n=== Destruction ===" << std::endl;
+	}
+
+	{
+		std::cout << "\n=== Test 5: Polymorphism with ClapTrap pointer to ScavTrap ===" << std::endl;
+		ClapTrap *clap = new ScavTrap("STheap");
+		clap->attack("target");
+		delete clap;
+	}
 	return 0;
 }
