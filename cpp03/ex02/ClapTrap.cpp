@@ -19,7 +19,6 @@ ClapTrap::ClapTrap(const ClapTrap &other)
     this->Hit = other.Hit;
     this->Energy = other.Energy;
     this->Attack = other.Attack;
-    return ;
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &other)

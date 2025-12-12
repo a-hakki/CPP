@@ -19,7 +19,7 @@ class ClapTrap
 
         ClapTrap();
         ClapTrap(str Name);
-        ClapTrap(ClapTrap &other);
+        ClapTrap(const ClapTrap &other);
         ClapTrap &operator=(const ClapTrap &other);
         ~ClapTrap();
 
@@ -29,3 +29,4 @@ class ClapTrap
 };
 
 #endif // CLAPTRAP_HPP
+ 
