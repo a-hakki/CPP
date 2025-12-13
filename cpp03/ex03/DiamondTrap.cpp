@@ -1,5 +1,14 @@
 #include "DiamondTrap.hpp"
 
+DiamondTrap::DiamondTrap()
+    : ClapTrap("default"), ScavTrap("default"), FragTrap("default"), Name("default_clap_name")
+{
+    this->Hit = 100;
+    this->Energy = 50;
+    this->Attack = 30;
+    std::cout << "DiamondTrap " << this->Name << " created." << std::endl;
+}
+
 DiamondTrap::DiamondTrap(std::string Name)
     : ClapTrap(Name), ScavTrap(Name), FragTrap(Name), Name(Name + "_clap_name")
 {
@@ -10,6 +19,7 @@ DiamondTrap::DiamondTrap(std::string Name)
 }
 
 DiamondTrap::DiamondTrap(const DiamondTrap &other)
+    : ClapTrap(other), ScavTrap(other), FragTrap(other)
 {
     *this = other;
     std::cout << "DiamondTrap " << this->Name << " copied." << std::endl;
