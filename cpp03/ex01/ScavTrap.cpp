@@ -10,8 +10,8 @@ ScavTrap::ScavTrap()
 }
 
 ScavTrap::ScavTrap(std::string Name)
-    : ClapTrap(Name)
 {
+    this->Name = Name;
     this->Hit = 100;
     this->Energy = 50;
     this->Attack = 20;
