@@ -17,8 +17,4 @@ class WrongAnimal
         void makeSound() const;
 };
 
-
-
-
-
 #endif //WRONGANIMAL_HPP
