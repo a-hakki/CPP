@@ -1,9 +1,9 @@
 NAME := a.out
 CC := c++
 FLAGS := -Wall -Wextra -Werror -std=c++98
-SRCS := main.cpp Animal.cpp Cat.cpp Dog.cpp Brain.cpp
+SRCS := main.cpp Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp
 OBJS := $(SRCS:.cpp=.o)
-HEADERS := Animal.hpp Cat.hpp Dog.hpp Brain.hpp
+HEADERS := Animal.hpp Cat.hpp Dog.hpp WrongAnimal.hpp WrongCat.hpp Brain.hpp
 
 all: $(NAME)
 
