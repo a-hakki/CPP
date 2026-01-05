@@ -11,14 +11,19 @@ class Bureaucrat {
         int         grade;
     
     public:
+        Bureaucrat();
         Bureaucrat(const str &name, int grade);
         Bureaucrat(const Bureaucrat &other);
         Bureaucrat &operator=(const Bureaucrat &other);
+        Bureaucrat &operator++();
+        Bureaucrat &operator--();
         ~Bureaucrat();
         str getname() const;
         int getgrade() const;
         void setgrade(int grade);
 };
+
+std::ostream &operator<<(std::ostream &os, const Bureaucrat &b);
 
 #endif //BUREAUCRAT_HPP
 
