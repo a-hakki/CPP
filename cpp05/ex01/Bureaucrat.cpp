@@ -65,7 +65,7 @@ std::ostream &operator<<(std::ostream &os, const Bureaucrat &b)
     return os;
 }
 
-void Bureaucrat::signForm(Form &form)  // Note: form should be non-const
+void Bureaucrat::signForm(Form &form)
 {
     try {
         form.beSigned(*this);
