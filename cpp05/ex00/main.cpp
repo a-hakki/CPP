@@ -12,7 +12,9 @@ int main() {
         std::cout << "After demotion: " << b1 << std::endl;
 
         Bureaucrat b2("Bob", 151);
-    } catch (const std::exception &e) {
+    } catch (const Bureaucrat::GradeTooHighException &e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    } catch (const Bureaucrat::GradeTooLowException &e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
 
