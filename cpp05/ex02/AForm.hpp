@@ -22,6 +22,15 @@ class AForm {
 		AForm &operator=(const AForm &other);
 		virtual ~AForm();
 
+		class GradeTooHighException : public std::exception {
+			public:
+				const char *what() const throw();
+		};
+		class GradeTooLowException : public std::exception {
+			public:
+				const char *what() const throw();
+		};
+
 		str		getName()		const;
 		bool	getIsSigned()	const;
 		int		getsignGrade()		const;

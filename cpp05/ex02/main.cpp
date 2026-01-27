@@ -26,7 +26,16 @@ int main() {
         robotomyForm.execute(bob);
         pardonForm.execute(bob);
     }
-    catch (const std::exception &e) {
+    catch (const Bureaucrat::GradeTooHighException &e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+    catch (const Bureaucrat::GradeTooLowException &e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+    catch (const AForm::GradeTooHighException &e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+    catch (const AForm::GradeTooLowException &e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
 
@@ -41,7 +50,16 @@ int main() {
         jim.signForm(shrubberyForm);
         shrubberyForm.execute(jim);
     }
-    catch (const std::exception &e) {
+    catch (const Bureaucrat::GradeTooHighException &e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+    catch (const Bureaucrat::GradeTooLowException &e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+    catch (const AForm::GradeTooHighException &e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+    catch (const AForm::GradeTooLowException &e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
     
