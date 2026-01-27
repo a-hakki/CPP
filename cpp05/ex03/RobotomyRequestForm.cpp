@@ -32,9 +32,9 @@ RobotomyRequestForm::~RobotomyRequestForm()
 void RobotomyRequestForm::execute(const Bureaucrat &bureaucrat) const
 {
     if (!getIsSigned())
-        throw std::runtime_error("Form is not signed");
+        throw AForm::GradeTooLowException();
     if (bureaucrat.getgrade() > getexecuteGrade())
-        throw std::runtime_error("Bureaucrat grade too low to execute the form");
+        throw AForm::GradeTooLowException();
     std::cout << "Vzzzzzz... Vzzzzzz... (drilling noises)" << std::endl;
     if (std::rand() % 2)
         std::cout << target << " has been robotomized successfully!" << std::endl;

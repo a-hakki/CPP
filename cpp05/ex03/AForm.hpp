@@ -2,6 +2,7 @@
 # define AFORM_HPP
 
 # include <iostream>
+# include <exception>
 
 class Bureaucrat;
 
@@ -21,6 +22,16 @@ class AForm {
 		AForm(const AForm &other);
 		AForm &operator=(const AForm &other);
 		virtual ~AForm();
+
+		class GradeTooHighException : public std::exception {
+			public:
+				virtual const char* what() const throw();
+		};
+
+		class GradeTooLowException : public std::exception {
+			public:
+				virtual const char* what() const throw();
+		};
 
 		str		getName()		const;
 		bool	getIsSigned()	const;
