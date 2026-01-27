@@ -20,6 +20,16 @@ class Bureaucrat {
         Bureaucrat &operator++();
         Bureaucrat &operator--();
         ~Bureaucrat();
+
+        class GradeTooHighException : public std::exception {
+            public:
+                const char *what() const throw();
+        };
+        class GradeTooLowException : public std::exception {
+            public:
+                const char *what() const throw();
+        };
+    
         str getname() const;
         int getgrade() const;
         void setgrade(int grade);

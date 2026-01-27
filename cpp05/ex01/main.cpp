@@ -10,7 +10,10 @@ int main() {
 
         john.signForm(taxForm);
     }
-    catch (const std::exception &e) {
+    catch (const Bureaucrat::GradeTooHighException &e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+    catch (const Bureaucrat::GradeTooLowException &e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
 
@@ -21,7 +24,10 @@ int main() {
 
         john.signForm(taxForm);
     }
-    catch (const std::exception &e) {
+    catch (const Form::GradeTooHighException &e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+    catch (const Form::GradeTooLowException &e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
 
@@ -42,10 +48,19 @@ int main() {
         std::cout << contract1 << std::endl;
         std::cout << contract2 << std::endl;
     }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
+    catch (const Form::GradeTooHighException &e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
     }
+    catch (const Form::GradeTooLowException &e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+    catch (const Bureaucrat::GradeTooHighException &e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+    catch (const Bureaucrat::GradeTooLowException &e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+    }
+    
     
 
     return 0;
