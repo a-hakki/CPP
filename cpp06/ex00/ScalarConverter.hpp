@@ -6,6 +6,14 @@
 
 typedef std::string str;
 
+enum Type
+{
+    CHAR,
+    INT,
+    FLOAT,
+    DOUBLE
+};
+
 class ScalarConverter 
 {
     private:
