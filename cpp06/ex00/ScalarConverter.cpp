@@ -1,6 +1,7 @@
 #include "ScalarConverter.hpp"
 #include <sstream>
 #include <iomanip>
+#include <limits>
 
 ScalarConverter::ScalarConverter()
 {
@@ -81,25 +82,43 @@ void ScalarConverter::convert(const std::string &string)
             break;
         case INT:
             {
-                int value;
+                long long value;
                 std::istringstream iss(trimmed);
                 iss >> value;
                 std::cout << "char: " << (value >= 0 && value <= 127 && std::isprint(static_cast<unsigned char>(value)) ? std::string("'") + std::string(1, static_cast<char>(value)) + "'" : "Non displayable") << "\n";
-                std::cout << "int: " << value << "\n";
-                std::cout << "float: " << static_cast<float>(value) << ".0f\n";
-                std::cout << "double: " << static_cast<double>(value) << ".0\n";
+                if (value >= std::numeric_limits<int>::min() && value <= std::numeric_limits<int>::max())
+                    std::cout << "int: " << static_cast<int>(value) << std::endl;
+                else
+                    std::cout << "int: impossible" << std::endl;
+                if (value >= -std::numeric_limits<float>::max() && value <= std::numeric_limits<float>::max())
+                    std::cout << "float: " << static_cast<float>(value) << ".0f\n";
+                else
+                    std::cout << "float: impossible\n";
+                if (value >= -std::numeric_limits<double>::max() && value <= std::numeric_limits<double>::max())
+                    std::cout << "double: " << static_cast<double>(value) << ".0\n";
+                else
+                    std::cout << "double: impossible\n";
             }
             break;
         case FLOAT:
             {
-                float value;
+                double value;
                 std::istringstream iss(trimmed);
                 iss >> value;
                 int intVal = static_cast<int>(value);
                 std::cout << "char: " << (intVal >= 0 && intVal <= 127 && std::isprint(static_cast<unsigned char>(intVal)) ? std::string("'") + std::string(1, static_cast<char>(intVal)) + "'" : "Non displayable") << "\n";
-                std::cout << "int: " << static_cast<int>(value) << "\n";
-                std::cout << "float: " << std::fixed << std::setprecision(1) << value << "f\n";
-                std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(value) << "\n";
+                if (value >= std::numeric_limits<int>::min() && value <= std::numeric_limits<int>::max())
+                    std::cout << "int: " << static_cast<int>(value) << "\n";
+                else
+                    std::cout << "int: impossible\n";
+                if (value >= -std::numeric_limits<float>::max() && value <= std::numeric_limits<float>::max())
+                    std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f\n";
+                else
+                    std::cout << "float: impossible\n";
+                if (value >= -std::numeric_limits<double>::max() && value <= std::numeric_limits<double>::max())
+                    std::cout << "double: " << std::fixed << std::setprecision(1) << value << "\n";
+                else
+                    std::cout << "double: impossible\n";
             }
             break;
         case DOUBLE:
@@ -109,9 +128,18 @@ void ScalarConverter::convert(const std::string &string)
                 iss >> value;
                 int intVal = static_cast<int>(value);
                 std::cout << "char: " << (intVal >= 0 && intVal <= 127 && std::isprint(static_cast<unsigned char>(intVal)) ? std::string("'") + std::string(1, static_cast<char>(intVal)) + "'" : "Non displayable") << "\n";
-                std::cout << "int: " << static_cast<int>(value) << "\n";
-                std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f\n";
-                std::cout << "double: " << std::fixed << std::setprecision(1) << value << "\n";
+                if (value >= std::numeric_limits<int>::min() && value <= std::numeric_limits<int>::max())
+                    std::cout << "int: " << static_cast<int>(value) << "\n";
+                else
+                    std::cout << "int: impossible\n";
+                if (value >= -std::numeric_limits<float>::max() && value <= std::numeric_limits<float>::max())
+                    std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f\n";
+                else
+                    std::cout << "float: impossible\n";
+                if (value >= -std::numeric_limits<double>::max() && value <= std::numeric_limits<double>::max())
+                    std::cout << "double: " << std::fixed << std::setprecision(1) << value << "\n";
+                else
+                    std::cout << "double: impossible\n";
             }
             break;
         default:
