@@ -12,6 +12,7 @@ template <typename T> class ARRAY {
         ARRAY(const ARRAY& other);
         ARRAY& operator=(const ARRAY& other);
         T& operator[](unsigned int ind);
+        const T& operator[](unsigned int ind) const;
         ~ARRAY();
         unsigned int size();
     private :
@@ -32,34 +33,36 @@ template <typename T> ARRAY<T>::ARRAY(unsigned int n)
 }
 
 template <typename T> ARRAY<T>::ARRAY(const ARRAY<T> &other)
-    : arr(0), _size(other._size)
+    : arr(new T[other._size]()), _size(other._size)
 {
-    if (other._size > 0)
-    {
-        arr = new T[other._size]();
-        for (unsigned int  i = 0; i < other._size; i++)
-            arr[i] = other.arr[i];
-    }
+    for (unsigned int  i = 0; i < this->_size; i++)
+        arr[i] = other.arr[i];
 }
+
 
 template <typename T> ARRAY<T> &ARRAY<T>::operator=(const ARRAY<T> &other)
 {
     if (this != &other)
     {
         delete[] this->arr;
-        this->arr = 0;
         this->_size = other._size;
-        if (other._size > 0)
-        {
-            this->arr = new T[other._size]();
-            for (unsigned int  i = 0; i < other._size; i++)
-                arr[i] = other.arr[i];
-        }
+        this->arr = new T[other._size]();
+        for (unsigned int  i = 0; i < other._size; i++)
+            arr[i] = other.arr[i];
     }
+
     return *this;
 }
 
 template <typename T> T &ARRAY<T>::operator[](unsigned int ind)
+{
+    if( ind >= this->_size )
+        throw std::out_of_range("Index out of bounds");
+
+    return arr[ind];
+}
+
+template <typename T> const T &ARRAY<T>::operator[](unsigned int ind) const
 {
     if( ind >= this->_size )
         throw std::out_of_range("Index out of bounds");

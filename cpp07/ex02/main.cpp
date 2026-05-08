@@ -63,5 +63,10 @@ int main()
     std::cout << "strings[0]: " << strings[0] << std::endl;
     std::cout << "strings[1]: " << strings[1] << std::endl;
 
+    std::cout << "\n=== Test 8: const access ===" << std::endl;
+    const ARRAY<int> const_arr(2);
+    std::cout << "const_arr[0]: " << const_arr[0] << std::endl;
+    // const_arr[0] = 5; // This should cause a compilation error
+
     return (0);
 }
