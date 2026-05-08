@@ -3,6 +3,7 @@
 
 # include <iostream>
 # include <cstddef>
+# include <stdexcept>
 
 template <typename T> class ARRAY {
     public:
@@ -10,7 +11,7 @@ template <typename T> class ARRAY {
         ARRAY(unsigned int n);
         ARRAY(const ARRAY& other);
         ARRAY& operator=(const ARRAY& other);
-        ARRAY& operator[](unsigned int ind);
+        T& operator[](unsigned int ind);
         ~ARRAY();
         unsigned int size();
     private :
@@ -21,7 +22,7 @@ template <typename T> class ARRAY {
 #endif //ARRAY_HPP
 
 template <typename T> ARRAY<T>::ARRAY()
-    : arr(new T()), _size(1)
+    : arr(0), _size(0)
 {
 }
 
@@ -31,33 +32,39 @@ template <typename T> ARRAY<T>::ARRAY(unsigned int n)
 }
 
 template <typename T> ARRAY<T>::ARRAY(const ARRAY<T> &other)
-    : arr(new T[other._size]), _size(other._size)
+    : arr(0), _size(other._size)
 {
-    for (unsigned int  i = 0; i < other._size; i++)
-        arr[i] = other.arr[i];
+    if (other._size > 0)
+    {
+        arr = new T[other._size]();
+        for (unsigned int  i = 0; i < other._size; i++)
+            arr[i] = other.arr[i];
+    }
 }
 
 template <typename T> ARRAY<T> &ARRAY<T>::operator=(const ARRAY<T> &other)
 {
-    if (this != other)
+    if (this != &other)
     {
-        this->arr = new T[other._size];
+        delete[] this->arr;
+        this->arr = 0;
         this->_size = other._size;
-        for (unsigned int  i = 0; i < other._size; i++)
-            arr[i] = other.arr[i];
+        if (other._size > 0)
+        {
+            this->arr = new T[other._size]();
+            for (unsigned int  i = 0; i < other._size; i++)
+                arr[i] = other.arr[i];
+        }
     }
     return *this;
 }
 
-template <typename T> ARRAY<T> &ARRAY<T>::operator[](unsigned int ind)
+template <typename T> T &ARRAY<T>::operator[](unsigned int ind)
 {
-    if( ind > this->_size )
-    {
-        // throw exaption
-        return arr[0];
-    }
+    if( ind >= this->_size )
+        throw std::out_of_range("Index out of bounds");
 
-    return arr[i];
+    return arr[ind];
 }
 
 template <typename T> ARRAY<T>::~ARRAY()
