@@ -1,17 +1,16 @@
-NAME = array_test
-CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-
-SRCS = main.cpp
-OBJS = $(SRCS:.cpp=.o)
-
+NAME := a.out
+CC := c++
+FLAGS := -Wall -Wextra -Werror -std=c++98
+SRCS := main.cpp
+OBJS := $(SRCS:.cpp=.o)
+HEADERS :=	Array.hpp
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(FLAGS) -o $@ $(OBJS)
 
-%.o: %.cpp Array.hpp Array.tpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+%.o: %.cpp $(HEADERS)
+	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
@@ -20,5 +19,5 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-
+	
 .PHONY: all clean fclean re
