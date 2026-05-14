@@ -11,7 +11,10 @@ enum Type
     CHAR,
     INT,
     FLOAT,
-    DOUBLE
+    DOUBLE,
+    NINT,
+    NFLOAT,
+    NDOUBLE
 };
 
 class ScalarConverter 
