@@ -3,7 +3,7 @@ CC := c++
 FLAGS := -Wall -Wextra -Werror -std=c++98
 SRCS := main.cpp BitcoinExchange.cpp
 OBJS := $(SRCS:.cpp=.o)
-HEADERS :=	BitcoinExchange.hpp
+HEADERS :=	BitcoinExchange.hpp data.csv
 all: $(NAME)
 
 $(NAME): $(OBJS)

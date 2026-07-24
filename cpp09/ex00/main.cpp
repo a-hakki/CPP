@@ -7,8 +7,15 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    BitcoinExchange btc;
-    btc.evaluate(argv[1]);
+    try
+    {
+        BitcoinExchange btc;
+        btc.evaluate(argv[1]);
+    }
+    catch (std::exception &e)
+    {
+        std::cout<<e.what()<<std::endl;
+    }
 
     return 0;
 }
