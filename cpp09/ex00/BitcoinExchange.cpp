@@ -2,14 +2,11 @@
 
 
 BitcoinExchange::BitcoinExchange() {
-    if (!_loadDatabase("data.csv")) {
-        throw std::runtime_error("Fatal: Database initialization failed.");
-    }
+    _loadDatabase("data.csv");
 }
 
 BitcoinExchange::BitcoinExchange(const std::string& dbFilename) {
-    if(!_loadDatabase(dbFilename))
-        throw std::runtime_error("Fatal: Database initialization failed.");
+    _loadDatabase(dbFilename);
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) {
@@ -67,20 +64,12 @@ bool BitcoinExchange::_isValidValue(const std::string& valueStr, float& outValue
     std::istringstream iss(valueStr);
     iss >> outValue;
 
-    // If it couldn't extract a number at all, it's invalid
-    if (iss.fail()) {
+    // Check if the string actually parsed to a valid float
+    if (iss.fail() || !iss.eof())
         return false;
-    }
-
-    // Try to read one more character
-    char leftover;
-    if (iss >> leftover) {
-        // If we successfully read another character, there is garbage at the end (e.g., "3.14abc")
-        return false;
-    }
-
     return true;
 }
+
 // --- Loading the internal DB ---
 bool BitcoinExchange::_loadDatabase(const std::string& filename) {
     std::ifstream file(filename.c_str());
@@ -90,45 +79,20 @@ bool BitcoinExchange::_loadDatabase(const std::string& filename) {
     }
 
     std::string line;
-    std::getline(file, line); // Skip the "date,exchange_rate" header
+    std::getline(file, line);
 
     while (std::getline(file, line)) {
-        // Skip empty lines
-        if (line.empty()) continue; 
-
         size_t commaPos = line.find(',');
-        if (commaPos == std::string::npos) {
-            std::cerr << "Error: Corrupted database format => " << line << "\n";
-            return false;
+        if (commaPos != std::string::npos) {
+            std::string date = line.substr(0, commaPos);
+            std::string rateStr = line.substr(commaPos + 1);
+            
+            float rate;
+            std::istringstream(rateStr) >> rate;
+            _database[date] = rate;
         }
-
-        std::string date = line.substr(0, commaPos);
-        std::string rateStr = line.substr(commaPos + 1);
-        
-        // 1. Validate the date format
-        if (!_isValidDate(date)) {
-            std::cerr << "Error: Corrupted database date => " << date << "\n";
-            return false;
-        }
-
-        // 2. Validate the exchange rate (must be a valid float and >= 0)
-        float rate;
-        if (!_isValidValue(rateStr, rate) || rate < 0) {
-            std::cerr << "Error: Corrupted database rate => " << rateStr << "\n";
-            return false;
-        }
-
-        _database[date] = rate; // Insert safely into map
     }
-    
     file.close();
-
-    // 3. Ensure the database wasn't just an empty file
-    if (_database.empty()) {
-        std::cerr << "Error: Database is empty.\n";
-        return false;
-    }
-
     return true;
 }
 
