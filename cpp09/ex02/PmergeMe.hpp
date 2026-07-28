@@ -10,8 +10,8 @@
 class PmergeMe
 {
     private:
-        std::vector<std::vector<int>> vec;
-        std::deque<std::deque<int>> deq;
+        std::vector<std::vector<int> > vec;
+        std::deque<std::deque<int> > deq;
     public:
         PmergeMe();
         void add(std::string s);
