@@ -33,8 +33,54 @@ std::vector<int> generator(int n)
     return temp;
 }
 
+std::vector<int> PmergeMe::mergeInsertion(std::vector<int> input)
+{
+    if (input.size() <= 1)
+        return input;
+
+    std::vector<std::pair<int,int> > pairs;
+    int leftover = -1;
+
+    // 1. Create pairs
+    for (size_t i = 0; i + 1 < input.size(); i += 2)
+    {
+        int a = input[i];
+        int b = input[i + 1];
+
+        if (a < b)
+            pairs.push_back(std::make_pair(a, b));
+        else
+            pairs.push_back(std::make_pair(b, a));
+    }
+
+    // 2. Save odd element
+    if (input.size() % 2)
+        leftover = input.back();
+
+    // 3. Extract big values
+    std::vector<int> big;
+    for (size_t i = 0; i < pairs.size(); i++)
+        big.push_back(pairs[i].second);
+
+    // 4. Recursive sort
+    big = mergeInsertion(big);
+
+    // 5. Rebuild pairs according to sorted big values
+    
+
+    // 6. Build main chain
+    // TODO
+
+    // 7. Insert pending using Jacobsthal order
+    // TODO
+
+    // 8. Insert leftover
+    // TODO
+
+    return input;
+}
+
 PmergeMe::PmergeMe()
-    : vec(0)
 {
 }
 
@@ -43,34 +89,17 @@ void PmergeMe::add(std::string s)
     int n;
     std::stringstream ss(s);
     ss >> n;
-    this->vec[0].push_back(n);
-    this->deq[0].push_back(n);
+    this->vec.push_back(n);
+    this->deq.push_back(n);
 }
 
 void PmergeMe::sort_vector()
 {
-
-    if (this->vec[0].size() == 1)
-        return ;
-    std::cout<< " vect size : " << this->vec.size() << std::endl;
-    for (size_t i = 0; i < this->vec.size(); i+=2)
-    {
-        big.push_back(std::max(vec[i], vec[i + 1]));
-        small.push_back(std::min(vec[i], vec[i + 1]));
-    }
-    if (this->vec.size() % 2)
-        left = vec[this->vec.size() - 1];
-    temp = big;
-    this->vec = big;
-    sort_vector();
-
-    size_t len = small.size();
-
-    return ;
+    this->vec = mergeInsertion(this->vec);
 }
-
 void PmergeMe::sort_deque()
 {
+    this->deq = mergeInsertion(this->deq);
 }
 
 PmergeMe::~PmergeMe()
