@@ -1,138 +1,76 @@
 #include "PmergeMe.hpp"
 
-#include <climits>
-#include <cctype>
-#include <stdexcept>
 
-static size_t jacobsthal(size_t n)
+int js(int n)
 {
-    if (n == 0)
-        return 0;
-    if (n == 1)
-        return 1;
-    size_t prev2 = 0;
-    size_t prev1 = 1;
-    for (size_t i = 2; i <= n; ++i)
-    {
-        size_t current = prev1 + (2 * prev2);
-        prev2 = prev1;
-        prev1 = current;
-    }
-    return prev1;
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+    
+    return (js(n - 1) + (2 * js(n - 2)));
 }
 
-static std::vector<size_t> build_insertion_order(size_t count)
+std::vector<int> generator(int n)
 {
-    std::vector<size_t> order;
-    if (count == 0)
-        return order;
+    std::vector<int> temp;
 
-    order.push_back(0);
-    size_t previous_jacob = 1;
-    size_t jacob_index = 3;
-    while (order.size() < count)
-    {
-        size_t current_jacob = jacobsthal(jacob_index);
-        if (current_jacob > count)
-            current_jacob = count;
-        for (size_t i = current_jacob; i > previous_jacob && order.size() < count; --i)
-            order.push_back(i - 1);
-        previous_jacob = current_jacob;
-        ++jacob_index;
-    }
-    return order;
-}
+    int next;
+    int current = 0;
+    int i = 1;
 
-template <typename Container>
-static void insert_sorted(Container &container, int value)
-{
-    typename Container::iterator position = std::lower_bound(container.begin(), container.end(), value);
-    container.insert(position, value);
-}
-
-template <typename Container>
-static void ford_johnson_sort(Container &values)
-{
-    if (values.size() <= 1)
-        return;
-
-    Container main_chain;
-    std::vector<int> pending;
-    bool has_odd = (values.size() % 2) != 0;
-    int odd_value = 0;
-
-    for (size_t i = 0; i + 1 < values.size(); i += 2)
-    {
-        int first = values[i];
-        int second = values[i + 1];
-        if (first < second)
-        {
-            main_chain.push_back(second);
-            pending.push_back(first);
+    while (i <= n) {
+        next = js(i);
+        if (next >= n)
+            next = n;
+        for (int j = next - 1; j >= current; j--) {
+            temp.push_back(j);
         }
-        else
-        {
-            main_chain.push_back(first);
-            pending.push_back(second);
-        }
+        if (next == n)
+            break;
+
+        i++;
+        current = next;
     }
-    if (has_odd)
-        odd_value = values[values.size() - 1];
-
-    ford_johnson_sort(main_chain);
-
-    std::vector<size_t> order = build_insertion_order(pending.size());
-    for (size_t i = 0; i < order.size(); ++i)
-        insert_sorted(main_chain, pending[order[i]]);
-    if (has_odd)
-        insert_sorted(main_chain, odd_value);
-
-    values.swap(main_chain);
+    return temp;
 }
 
 PmergeMe::PmergeMe()
-    : vec(1), deq(1)
+    : vec(0)
 {
 }
 
 void PmergeMe::add(std::string s)
 {
-    if (s.empty())
-        throw std::invalid_argument("invalid input");
-
-    for (size_t i = 0; i < s.size(); ++i)
-    {
-        if (!std::isdigit(static_cast<unsigned char>(s[i])))
-            throw std::invalid_argument("invalid input");
-    }
-
-    long long n;
+    int n;
     std::stringstream ss(s);
-    char remaining;
-    if (!(ss >> n) || (ss >> remaining) || n < 0 || n > INT_MAX)
-        throw std::invalid_argument("invalid input");
-
-    if (this->vec.empty())
-        this->vec.push_back(std::vector<int>());
-    if (this->deq.empty())
-        this->deq.push_back(std::deque<int>());
-
-    this->vec[0].push_back(static_cast<int>(n));
-    this->deq[0].push_back(static_cast<int>(n));
+    ss >> n;
+    this->vec[0].push_back(n);
+    this->deq[0].push_back(n);
 }
 
 void PmergeMe::sort_vector()
 {
-    if (this->vec.empty() || this->vec[0].size() <= 1)
-        return;
-    ford_johnson_sort(this->vec[0]);
+
+    if (this->vec[0].size() == 1)
+        return ;
+    std::cout<< " vect size : " << this->vec.size() << std::endl;
+    for (size_t i = 0; i < this->vec.size(); i+=2)
+    {
+        big.push_back(std::max(vec[i], vec[i + 1]));
+        small.push_back(std::min(vec[i], vec[i + 1]));
+    }
+    if (this->vec.size() % 2)
+        left = vec[this->vec.size() - 1];
+    temp = big;
+    this->vec = big;
+    sort_vector();
+
+    size_t len = small.size();
+
+    return ;
 }
 
 void PmergeMe::sort_deque()
 {
-    if (this->deq.empty() || this->deq[0].size() <= 1)
-        return;
-    ford_johnson_sort(this->deq[0]);
 }
 
 PmergeMe::~PmergeMe()
