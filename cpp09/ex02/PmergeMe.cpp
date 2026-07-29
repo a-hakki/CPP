@@ -262,7 +262,7 @@ void PmergeMe::sort_deque(std::deque<t_it_d> &it)
     g_comparisons = 0; // Reset before sorting
     it = mergeInsertion(it);
 
-    // std::cout << "Total comparisons made: " << g_comparisons << std::endl;
+    std::cout << "Total comparisons made: " << g_comparisons << std::endl;
 
 }
 
@@ -270,7 +270,7 @@ void PmergeMe::sort_vector(std::vector<t_it_v> &it)
 {
     g_comparisons = 0; // Reset before sorting
     it = mergeInsertion(it);
-    // std::cout << "Total comparisons made: " << g_comparisons << std::endl;
+    std::cout << "Total comparisons made: " << g_comparisons << std::endl;
 }
 
 PmergeMe::~PmergeMe()

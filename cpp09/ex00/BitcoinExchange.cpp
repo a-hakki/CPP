@@ -22,7 +22,7 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
 
 BitcoinExchange::~BitcoinExchange() {}
 
-// --- Helpers ---
+
 void BitcoinExchange::_trim(std::string& str) const {
     size_t first = str.find_first_not_of(" \t\r\n");
     if (first == std::string::npos) {
@@ -34,7 +34,7 @@ void BitcoinExchange::_trim(std::string& str) const {
 }
 
 bool BitcoinExchange::_isValidDate(const std::string& date) const {
-    // Format must be strictly YYYY-MM-DD
+
     if (date.length() != 10) return false;
     if (date[4] != '-' || date[7] != '-') return false;
 
@@ -51,7 +51,7 @@ bool BitcoinExchange::_isValidDate(const std::string& date) const {
     if (year < 2009 || month < 1 || month > 12 || day < 1 || day > 31)
         return false;
     
-    // Basic day limits for months
+
     if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30) return false;
     if (month == 2) {
         bool isLeap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
@@ -64,13 +64,13 @@ bool BitcoinExchange::_isValidValue(const std::string& valueStr, float& outValue
     std::istringstream iss(valueStr);
     iss >> outValue;
 
-    // Check if the string actually parsed to a valid float
+
     if (iss.fail() || !iss.eof())
         return false;
     return true;
 }
 
-// --- Loading the internal DB ---
+
 bool BitcoinExchange::_loadDatabase(const std::string& filename) {
     std::ifstream file(filename.c_str());
     if (!file.is_open()) {
@@ -142,16 +142,14 @@ void BitcoinExchange::evaluate(const std::string& inputFile) const {
         std::map<std::string, float>::const_iterator it = _database.lower_bound(date);
 
         if (it == _database.end() || it->first != date) {
-            // If we are at the very beginning, there is no lower date available.
+
             if (it == _database.begin()) {
                 std::cout << "Error: no exchange rate data available prior to " << date << "\n";
                 continue;
             }
-            // Step the iterator backward once to get the closest LOWER date
             --it;
         }
 
-        // Output the calculated value
         std::cout << date << " => " << value << " = " << (value * it->second) << "\n";
     }
     file.close();
