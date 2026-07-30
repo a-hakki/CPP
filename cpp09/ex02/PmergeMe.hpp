@@ -20,7 +20,11 @@ struct t_it_d
     
     // It is best practice to include the assignment operator 
     // since you use: leftover = input.back();
-    t_it_d& operator=(const t_it_d &other); 
+    t_it_d& operator=(const t_it_d &other);
+
+    bool operator==(const t_it_d& other) const {
+        return this->value == other.value;
+    }
 };
 
 struct t_it_v
@@ -34,7 +38,11 @@ struct t_it_v
     
     // It is best practice to include the assignment operator 
     // since you use: leftover = input.back();
-    t_it_v& operator=(const t_it_v &other); 
+    t_it_v& operator=(const t_it_v &other);
+
+    bool operator==(const t_it_v& other) const {
+        return this->value == other.value;
+    }
 };
 
 

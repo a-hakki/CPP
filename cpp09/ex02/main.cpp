@@ -1,18 +1,27 @@
 # include "PmergeMe.hpp"
 
 
-void fill_d(std::deque<t_it_d> &it,const PmergeMe &p)
+void fill_v(std::vector<t_it_v> &it, const PmergeMe &p)
 {
     for (size_t i = 0; i < p.get_deq().size(); i++)
     {
-        it.push_back(t_it_d(p.get_deq()[i]));
+        t_it_v new_val = t_it_v(p.get_deq()[i]);
+        if (std::find(it.begin(), it.end(), new_val) == it.end())
+        {
+            it.push_back(new_val);
+        }
     }
 }
-void fill_v(std::vector<t_it_v> &it,const PmergeMe &p)
+
+void fill_d(std::deque<t_it_d> &it, const PmergeMe &p)
 {
     for (size_t i = 0; i < p.get_deq().size(); i++)
     {
-        it.push_back(t_it_v(p.get_deq()[i]));
+        t_it_d new_val = t_it_d(p.get_deq()[i]);
+        if (std::find(it.begin(), it.end(), new_val) == it.end())
+        {
+            it.push_back(new_val);
+        }
     }
 }
 
@@ -56,10 +65,10 @@ int main(int ac, char **av)
 
 
         std::cout << "After:  ";
-        for (size_t i = 0; i < num_elements; i++)
-            std::cout << it_d[i].value << (i + 1 < num_elements ? " " : "");
+        for (size_t i = 0; i < it_d.size(); i++) {
+            std::cout << it_d[i].value << " ";
+        }
         std::cout << std::endl;
-
 
         std::cout << "Time to process a range of " << num_elements 
                   << " elements with std::deque : " << time_deque << " us" << std::endl;
