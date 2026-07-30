@@ -8,10 +8,7 @@ void fill_v(std::vector<t_it_v> &it, const PmergeMe &p)
     for (size_t i = 0; i < p.get_deq().size(); i++)
     {
         t_it_v new_val = t_it_v(p.get_deq()[i]);
-        if (std::find(it.begin(), it.end(), new_val) == it.end())
-        {
-            it.push_back(new_val);
-        }
+        it.push_back(new_val);
     }
 }
 
@@ -20,10 +17,7 @@ void fill_d(std::deque<t_it_d> &it, const PmergeMe &p)
     for (size_t i = 0; i < p.get_deq().size(); i++)
     {
         t_it_d new_val = t_it_d(p.get_deq()[i]);
-        if (std::find(it.begin(), it.end(), new_val) == it.end())
-        {
-            it.push_back(new_val);
-        }
+        it.push_back(new_val);
     }
 }
 

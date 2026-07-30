@@ -111,31 +111,30 @@ std::deque<t_it_d> PmergeMe::mergeInsertion(std::deque<t_it_d> &input)
             if (target_idx >= small.size())
             {
                 target_idx = small.size() - 1;
-                if (leftover.value != -1)
-                {
-                    std::deque<t_it_d>::iterator pos = std::lower_bound(next.begin(), next.end(), leftover, compareAndCount_d);
-                    next.insert(pos, leftover);
-                }
             }
 
             for (size_t i = target_idx; i > prev_inserted_idx; i--)
             {
                 std::deque<t_it_d>::iterator pos = std::lower_bound(next.begin(), next.begin() + (i + added_count), small[i], compareAndCount_d);
                 next.insert(pos, small[i]);
-                added_count++;
             }
+            added_count += target_idx - prev_inserted_idx;
             prev_inserted_idx = target_idx;
             k++;
         }
-
+    }
+    if (leftover.value != -1)
+    {
+        std::deque<t_it_d>::iterator pos = std::lower_bound(next.begin(), next.end(), leftover, compareAndCount_d);
+        next.insert(pos, leftover);
     }
     return next;
 }
 
 std::vector<t_it_v> PmergeMe::mergeInsertion(std::vector<t_it_v> &input)
 {
-        if (input.size() <= 1)
-        return input;
+    if (input.size() <= 1)
+    return input;
     
     std::vector<t_it_v> next;
 
@@ -189,23 +188,22 @@ std::vector<t_it_v> PmergeMe::mergeInsertion(std::vector<t_it_v> &input)
             if (target_idx >= small.size())
             {
                 target_idx = small.size() - 1;
-                if (leftover.value != -1)
-                {
-                    std::vector<t_it_v>::iterator pos = std::lower_bound(next.begin(), next.end(), leftover, compareAndCount_v);
-                    next.insert(pos, leftover);
-                }
             }
-
             for (size_t i = target_idx; i > prev_inserted_idx; i--)
             {
                 std::vector<t_it_v>::iterator pos = std::lower_bound(next.begin(), next.begin() + (i + added_count), small[i], compareAndCount_v);
                 next.insert(pos, small[i]);
-                added_count++;
+                
             }
+            added_count += target_idx - prev_inserted_idx;
             prev_inserted_idx = target_idx;
             k++;
         }
-
+    }
+    if (leftover.value != -1)
+    {
+        std::vector<t_it_v>::iterator pos = std::lower_bound(next.begin(), next.end(), leftover, compareAndCount_v);
+        next.insert(pos, leftover);
     }
     return next;
 }

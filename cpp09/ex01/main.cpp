@@ -14,6 +14,7 @@ void trim(std::string& str){
 int main(int ac, char **av)
 {
     if (ac != 2)
+
         return (std::cerr << "ERROR"<<std::endl, 1);
     if (!av[1][0])
         return (std::cerr << "ERROR"<<std::endl, 1);
