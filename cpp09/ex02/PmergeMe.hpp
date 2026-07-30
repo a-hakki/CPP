@@ -17,9 +17,7 @@ struct t_it_d
     t_it_d(int value);
     t_it_d(int value, t_it_d p_it);
     t_it_d(const t_it_d &other);
-    
-    // It is best practice to include the assignment operator 
-    // since you use: leftover = input.back();
+
     t_it_d& operator=(const t_it_d &other);
 
     bool operator==(const t_it_d& other) const {
@@ -30,14 +28,12 @@ struct t_it_d
 struct t_it_v
 {
     int                 value;
-    std::deque<t_it_v>  it;
+    std::vector<t_it_v> it;
 
     t_it_v(int value);
     t_it_v(int value, t_it_v p_it);
     t_it_v(const t_it_v &other);
-    
-    // It is best practice to include the assignment operator 
-    // since you use: leftover = input.back();
+
     t_it_v& operator=(const t_it_v &other);
 
     bool operator==(const t_it_v& other) const {
@@ -54,7 +50,6 @@ class PmergeMe
 
         std::deque<t_it_d> mergeInsertion(std::deque<t_it_d> &input);
         std::vector<t_it_v> mergeInsertion(std::vector<t_it_v> &input);
-        // std::deque<int> mergeInsertion();
 
     public:
         PmergeMe();

@@ -1,5 +1,7 @@
 # include "PmergeMe.hpp"
-
+# include <iostream>
+# include <iomanip>
+# include <time.h>
 
 void fill_v(std::vector<t_it_v> &it, const PmergeMe &p)
 {
@@ -42,7 +44,7 @@ int main(int ac, char **av)
         
         fill_d(it_d, p);
         fill_v(it_v, p);
-        
+
         size_t num_elements = it_d.size();
 
         std::cout << "Before: ";
@@ -50,31 +52,32 @@ int main(int ac, char **av)
             std::cout << it_d[i].value << (i + 1 < num_elements ? " " : "");
         std::cout << std::endl;
 
-        struct timeval start, end;
-        long long time_deque, time_vector;
-
-        gettimeofday(&start, NULL);
+        struct timespec start_d, end_d;
+        clock_gettime(CLOCK_MONOTONIC, &start_d);
         p.sort_deque(it_d);
-        gettimeofday(&end, NULL);
-        time_deque = (end.tv_sec - start.tv_sec) * 1000000LL + (end.tv_usec - start.tv_usec);
+        clock_gettime(CLOCK_MONOTONIC, &end_d);
 
-        gettimeofday(&start, NULL);
+        double time_deque = (end_d.tv_sec - start_d.tv_sec) * 1000000.0 + (end_d.tv_nsec - start_d.tv_nsec) / 1000.0;
+
+        struct timespec start_v, end_v;
+        clock_gettime(CLOCK_MONOTONIC, &start_v);
         p.sort_vector(it_v);
-        gettimeofday(&end, NULL);
-        time_vector = (end.tv_sec - start.tv_sec) * 1000000LL + (end.tv_usec - start.tv_usec);
+        clock_gettime(CLOCK_MONOTONIC, &end_v);
+        
+        double time_vector = (end_v.tv_sec - start_v.tv_sec) * 1000000.0 + (end_v.tv_nsec - start_v.tv_nsec) / 1000.0;
 
-
+ 
         std::cout << "After:  ";
         for (size_t i = 0; i < it_d.size(); i++) {
-            std::cout << it_d[i].value << " ";
+            std::cout << it_d[i].value << (i + 1 < it_d.size() ? " " : "");
         }
         std::cout << std::endl;
+        
+        std::cout << "Time to process a range of " << num_elements << " elements with std::deque  : " 
+                  << std::fixed << std::setprecision(5) << time_deque << " us" << std::endl;
 
-        std::cout << "Time to process a range of " << num_elements 
-                  << " elements with std::deque : " << time_deque << " us" << std::endl;
-
-        std::cout << "Time to process a range of " << num_elements 
-                  << " elements with std::vector : " << time_vector << " us" << std::endl;
+        std::cout << "Time to process a range of " << num_elements << " elements with std::vector : " 
+                  << std::fixed << std::setprecision(5) << time_vector << " us" << std::endl;
 
     }
     catch (const std::exception &)
